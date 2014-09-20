@@ -12,17 +12,28 @@ class RestaurantTableViewCell: UITableViewCell {
 
     @IBOutlet weak var restaurantNameLabel: UILabel!
     @IBOutlet weak var restaurantImage: UIImageView!
-    @IBOutlet weak var ratingView: UIView!
+    @IBOutlet weak var ratingImage: UIImageView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
     @IBOutlet weak var reviewCountLabel: UILabel!
 
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var separator: UIView!
+    
+    let GRAY_TEXT_COLOR = UIColor(white: 0.53, alpha: 1.0)
+    let SEPARATOR_COLOR = UIColor(white: 0.8, alpha: 0.5)
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.distanceLabel.textColor = GRAY_TEXT_COLOR
+        self.priceLabel.textColor = GRAY_TEXT_COLOR
+        self.reviewCountLabel.textColor = GRAY_TEXT_COLOR
+        self.categoriesLabel.textColor = GRAY_TEXT_COLOR
+        self.separator.backgroundColor = SEPARATOR_COLOR
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -72,9 +83,33 @@ class RestaurantTableViewCell: UITableViewCell {
         self.categoriesLabel.text = displayCategories
     }
     
+    func setImage(imageURL: NSURL) {
+        self.restaurantImage?.layer.cornerRadius = 4
+        self.restaurantImage?.layer.masksToBounds = true
+        fadeInImageFromURL(self.restaurantImage, url: imageURL)
+    }
+    
     func setRatingImage(ratingImageURL: NSURL) {
-        var ratingImage = UIImageView()
         ratingImage.setImageWithURL(ratingImageURL)
-        ratingView.addSubview(ratingImage)
+    }
+    
+    func setRestaurantName(number: Int, name: String) {
+        self.restaurantNameLabel.text =  String(number) + ". " + name
+        self.restaurantNameLabel.numberOfLines = 0
+        self.restaurantNameLabel.sizeToFit()
+    }
+    func fadeInImageFromURL(imageView :UIImageView, url: NSURL) {
+        let request = NSURLRequest(URL: url)
+        imageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (request, response, image) -> Void in
+            if (response == nil) {
+                imageView.image = image
+                return
+            }
+            imageView.alpha = 0.0
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                imageView.image = image
+                imageView.alpha = 1.0
+            })
+            }, failure: nil)
     }
 }

@@ -63,9 +63,8 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as RestaurantTableViewCell
         let restaurant = restaurantsArray[indexPath.row]
         
-        cell.restaurantNameLabel.text = String(indexPath.row+1) + ". " + restaurant.name
-        cell.restaurantNameLabel.sizeToFit()
-        fadeInImageFromURL(cell.restaurantImage, url: restaurant.imageURL)
+        cell.setRestaurantName(indexPath.row+1, name: restaurant.name)
+        cell.setImage(restaurant.imageURL)
         cell.setRatingImage(restaurant.ratingImageURL)
         
         cell.setReviewCount(restaurant.reviewCount)
@@ -131,7 +130,7 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = YelpClient(consumerKey: kYelpConsumerKey, consumerSecret: kYelpConsumerSecret, accessToken: kYelpToken, accessSecret: kYelpTokenSecret)
         
-        self.client.searchWithTerm("restaurant",
+        self.client.searchWithTerm("codmother",
             success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             
                 if let resultsArray = response["businesses"] as [NSDictionary]? {
@@ -153,18 +152,5 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    func fadeInImageFromURL(imageView :UIImageView, url: NSURL) {
-        let request = NSURLRequest(URL: url)
-        imageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (request, response, image) -> Void in
-            if (response == nil) {
-                imageView.image = image
-                return
-            }
-            imageView.alpha = 0.0
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
-                imageView.image = image
-                imageView.alpha = 1.0
-            })
-            }, failure: nil)
-    }
+
 }
