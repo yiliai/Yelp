@@ -19,10 +19,9 @@ let PADDING = CGFloat(10)
 class RestaurantsTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var restaurantsTableView: UITableView!
+    @IBOutlet weak var filterButton: UIBarButtonItem!
     var searchBar = UISearchBar()
     
-    @IBOutlet weak var filterButton: UIBarButtonItem!
-
     var client = YelpClient()
     var restaurantsArray = [Restaurant]()
     
@@ -34,12 +33,15 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
+        // Skin the navigation bar
         self.navigationController?.navigationBar.barTintColor = YELP_RED
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        filterButton.target = self
+        filterButton.action = "showFilterView"
         
+        // Setting up the table view and table cells
         let restaurantCellNib = UINib(nibName: "RestaurantTableViewCell", bundle: nil);
         restaurantsTableView.registerNib(restaurantCellNib, forCellReuseIdentifier: "restaurantCell")
-        
         restaurantsTableView.estimatedRowHeight = 200
         restaurantsTableView.rowHeight = UITableViewAutomaticDimension
         restaurantsTableView.separatorStyle = .None
@@ -64,9 +66,8 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
             nil]
             forState:UIControlStateNormal];*/
 
+        // Initial search term
         searchYelp("restaurant")
-        
-        NSLog("hello!")
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,12 +107,17 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
         
         return cell
     }
-    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchYelp(searchBar.text)
     }
-
+    func showFilterView() {
+        NSLog("Tapped on filter")
+        let filterViewController = FilterViewController(nibName: "FilterViewController", bundle: nil)
+        self.navigationController?.presentViewController(filterViewController, animated: true, completion: { () -> Void in
+            NSLog("Successfully pushed the filter view")
+        })
+    }
     func searchYelp(query: String) {
         // Clear the restaurants list array
         self.restaurantsArray = [Restaurant]()
@@ -143,26 +149,6 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
             }) { (operation :AFHTTPRequestOperation!, error :NSError!) -> Void in
                 NSLog("error: \(error.description)");
                 progressControl.removeFromSuperview()
-        }
-    }
-    
-    func loadYelpData() {
-        // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
-        self.client = YelpClient(consumerKey: kYelpConsumerKey, consumerSecret: kYelpConsumerSecret, accessToken: kYelpToken, accessSecret: kYelpTokenSecret)
-        
-        self.client.searchWithTerm("codmother",
-            success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            
-                if let resultsArray = response["businesses"] as [NSDictionary]? {
-                    for result in resultsArray {
-                        self.restaurantsArray.append(Restaurant(dictionary: result))
-                    }
-                    //self.printRestaurantsArray(self.restaurantsArray)
-                    NSLog ("Data loaded...")
-                    self.restaurantsTableView.reloadData()
-                }
-            }) { (operation :AFHTTPRequestOperation!, error :NSError!) -> Void in
-                NSLog("error: \(error.description)");
         }
     }
     func printRestaurantsArray(restaurants: [Restaurant]) {

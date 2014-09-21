@@ -37,7 +37,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Map" id="RLu-cS-34E"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="filterButton" destination="iU8-pA-b57" id="NXJ-n5-4tg"/>
+                        <outlet property="filterButton" destination="iU8-pA-b57" id="HOn-UW-qgt"/>
                         <outlet property="restaurantsTableView" destination="tfb-wn-q3m" id="iET-3b-DUx"/>
                     </connections>
                 </viewController>
