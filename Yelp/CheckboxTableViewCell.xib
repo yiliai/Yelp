@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CheckboxTableViewCell" customModule="Yelp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked" highlightedImage="checked" translatesAutoresizingMaskIntoConstraints="NO" id="egg-kC-bXx">
+                        <rect key="frame" x="280" y="5" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="Onx-Hs-y56"/>
+                            <constraint firstAttribute="width" constant="32" id="sUN-Om-MXZ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmm-eC-5S3">
+                        <rect key="frame" x="8" y="14" width="36" height="15"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="egg-kC-bXx" secondAttribute="trailing" constant="8" id="9TP-Ju-Aq8"/>
+                    <constraint firstAttribute="bottom" secondItem="pmm-eC-5S3" secondAttribute="bottom" constant="14" id="L2G-iM-BH8"/>
+                    <constraint firstItem="egg-kC-bXx" firstAttribute="centerY" secondItem="pmm-eC-5S3" secondAttribute="centerY" constant="-0.5" id="USO-oc-G4c"/>
+                    <constraint firstItem="pmm-eC-5S3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="dAG-wX-eg0"/>
+                    <constraint firstItem="pmm-eC-5S3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="qnd-W9-Ie7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="optionLabel" destination="pmm-eC-5S3" id="oVR-uZ-XJX"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="151"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checked" width="32" height="32"/>
+        <image name="unchecked" width="32" height="32"/>
+    </resources>
+</document>

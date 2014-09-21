@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
+        FilterSettings()
         return true
     }
 
