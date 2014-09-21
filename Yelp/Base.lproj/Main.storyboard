@@ -32,8 +32,12 @@
                             <constraint firstAttribute="trailing" secondItem="tfb-wn-q3m" secondAttribute="trailing" id="ujc-jl-HCH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="6Q2-zI-20f"/>
+                    <navigationItem key="navigationItem" id="6Q2-zI-20f">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="iU8-pA-b57"/>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="RLu-cS-34E"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="filterButton" destination="iU8-pA-b57" id="NXJ-n5-4tg"/>
                         <outlet property="restaurantsTableView" destination="tfb-wn-q3m" id="iET-3b-DUx"/>
                     </connections>
                 </viewController>
@@ -49,6 +53,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kl5-l4-0kE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

@@ -13,9 +13,16 @@ let kYelpConsumerSecret = NSString(string: "33QCvh5bIF5jIHR5klQr7RtBDhQ")
 let kYelpToken = NSString(string: "uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV")
 let kYelpTokenSecret = NSString(string: "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y")
 
-class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
+let YELP_RED = UIColor(red: 0.87, green: 0.08, blue: 0, alpha: 1.0)
+let PADDING = CGFloat(10)
+
+class RestaurantsTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var restaurantsTableView: UITableView!
+    var searchBar = UISearchBar()
+    
+    @IBOutlet weak var filterButton: UIBarButtonItem!
+
     var client = YelpClient()
     var restaurantsArray = [Restaurant]()
     
@@ -26,6 +33,9 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+
+        self.navigationController?.navigationBar.barTintColor = YELP_RED
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
         let restaurantCellNib = UINib(nibName: "RestaurantTableViewCell", bundle: nil);
         restaurantsTableView.registerNib(restaurantCellNib, forCellReuseIdentifier: "restaurantCell")
@@ -34,7 +44,27 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
         restaurantsTableView.rowHeight = UITableViewAutomaticDimension
         restaurantsTableView.separatorStyle = .None
         
-        loadYelpData()
+        // Set up the search bar
+        self.navigationItem.titleView = searchBar;
+        searchBar.delegate = self
+        
+       /* NSDictionary* barButtonItemAttributes =
+        {NSFontAttributeName:
+            UIFont   (fontWithName:@"Georgia" size:20.0f],
+            NSForegroundColorAttributeName:
+            [UIColor colorWithRed:141.0/255.0 green:209.0/255.0 blue:205.0/255.0 alpha:1.0]
+        }
+        
+        filterButton.setTitleTextAttributes(attributes: [NSDictionary dictionar AnyObject]!, forState: <#UIControlState#>)
+        
+        
+        [buttonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+            [UIFont fontWithName:@"Helvetica-Bold" size:26.0], NSFontAttributeName,
+            [UIColor greenColor], NSForegroundColorAttributeName,
+            nil]
+            forState:UIControlStateNormal];*/
+
+        searchYelp("restaurant")
         
         NSLog("hello!")
     }
@@ -71,60 +101,50 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
         cell.setAddress(restaurant.location.address, neighborhoods: restaurant.location.neighborhoods)
         cell.setCategories(restaurant.categories)
         
-        cell.distanceLabel.frame = CGRectMake (100,0,50,50)
         cell.distanceLabel.text = "0.3mi"
         cell.distanceLabel.sizeToFit()
-        cell.distanceLabel.hidden = false
         
         return cell
     }
     
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchYelp(searchBar.text)
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    func searchYelp(query: String) {
+        // Clear the restaurants list array
+        self.restaurantsArray = [Restaurant]()
+        self.restaurantsTableView.reloadData()
+        
+        // Show a progress spinner
+        let progressControl = UIActivityIndicatorView()
+        self.view.addSubview(progressControl)
+        progressControl.hidden = false
+        progressControl.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        progressControl.color = UIColor.lightGrayColor()
+        progressControl.frame = CGRectMake(self.view.frame.width/2-PADDING, self.view.frame.height/2-PADDING, 2*PADDING, 2*PADDING)
+        progressControl.startAnimating()
+        
+        // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
+        self.client = YelpClient(consumerKey: kYelpConsumerKey, consumerSecret: kYelpConsumerSecret, accessToken: kYelpToken, accessSecret: kYelpTokenSecret)
+        NSLog("Searching for...\(query)")
+        self.client.searchWithTerm(query,
+            success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                if let resultsArray = response["businesses"] as [NSDictionary]? {
+                    for result in resultsArray {
+                        self.restaurantsArray.append(Restaurant(dictionary: result))
+                    }
+                    //self.printRestaurantsArray(self.restaurantsArray)
+                    NSLog ("Search DONE")
+                    progressControl.removeFromSuperview()
+                    self.restaurantsTableView.reloadData()
+                }
+            }) { (operation :AFHTTPRequestOperation!, error :NSError!) -> Void in
+                NSLog("error: \(error.description)");
+                progressControl.removeFromSuperview()
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     
     func loadYelpData() {
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
@@ -145,12 +165,17 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource {
                 NSLog("error: \(error.description)");
         }
     }
-    
     func printRestaurantsArray(restaurants: [Restaurant]) {
         for restaurant in restaurants {
             NSLog(restaurant.description)
         }
     }
-    
-
+    func colorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
 }
