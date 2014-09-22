@@ -6,14 +6,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="restaurantCell" id="KGk-i7-Jjw" customClass="RestaurantTableViewCell" customModule="Yelp" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="businessCell" id="KGk-i7-Jjw" customClass="BusinessTableViewCell" customModule="Yelp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="387" height="115"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="1. Restaurant Cell" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpK-SI-rrk">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="1. Business Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpK-SI-rrk">
                         <rect key="frame" x="80" y="8" width="255" height="37"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14.5"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -99,12 +99,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="VyX-th-1t8" id="IKe-Ti-WTC"/>
+                <outlet property="businessImage" destination="Lzj-1p-v1Q" id="jbG-fl-lnh"/>
+                <outlet property="businessNameLabel" destination="tpK-SI-rrk" id="Y09-4s-MJh"/>
                 <outlet property="categoriesLabel" destination="uJZ-ba-Bsk" id="p8S-WF-nrv"/>
                 <outlet property="distanceLabel" destination="hwp-mA-yqw" id="LlZ-Hu-BwU"/>
                 <outlet property="priceLabel" destination="ttA-Cc-noL" id="FlX-NR-JuU"/>
                 <outlet property="ratingImage" destination="8bo-Iv-49v" id="88A-1K-EBy"/>
-                <outlet property="restaurantImage" destination="Lzj-1p-v1Q" id="rWR-UG-h0c"/>
-                <outlet property="restaurantNameLabel" destination="tpK-SI-rrk" id="ZqG-vn-aXW"/>
                 <outlet property="reviewCountLabel" destination="FKq-Sg-bRt" id="OpC-vY-Cf3"/>
                 <outlet property="separator" destination="eqW-r0-MQm" id="emw-zp-JRB"/>
             </connections>

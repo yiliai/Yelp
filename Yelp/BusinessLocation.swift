@@ -1,5 +1,5 @@
 //
-//  RestaurantLocation.swift
+//  BusinessLocation.swift
 //  Yelp
 //
 //  Created by Yili Aiwazian on 9/20/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RestaurantLocation {
+class BusinessLocation {
     
     var dictionaryReference = NSDictionary()
 

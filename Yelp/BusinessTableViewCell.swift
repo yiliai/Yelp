@@ -1,5 +1,5 @@
 //
-//  RestaurantTableViewCell.swift
+//  BusinessTableViewCell.swift
 //  Yelp
 //
 //  Created by Yili Aiwazian on 9/17/14.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class RestaurantTableViewCell: UITableViewCell {
+class BusinessTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var restaurantNameLabel: UILabel!
-    @IBOutlet weak var restaurantImage: UIImageView!
+    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var businessImage: UIImageView!
     @IBOutlet weak var ratingImage: UIImageView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
@@ -84,19 +84,19 @@ class RestaurantTableViewCell: UITableViewCell {
     }
     
     func setImage(imageURL: NSURL) {
-        self.restaurantImage?.layer.cornerRadius = 4
-        self.restaurantImage?.layer.masksToBounds = true
-        fadeInImageFromURL(self.restaurantImage, url: imageURL)
+        self.businessImage?.layer.cornerRadius = 4
+        self.businessImage?.layer.masksToBounds = true
+        fadeInImageFromURL(self.businessImage, url: imageURL)
     }
     
     func setRatingImage(ratingImageURL: NSURL) {
         ratingImage.setImageWithURL(ratingImageURL)
     }
     
-    func setRestaurantName(number: Int, name: String) {
-        self.restaurantNameLabel.text =  String(number) + ". " + name
-        self.restaurantNameLabel.numberOfLines = 0
-        self.restaurantNameLabel.sizeToFit()
+    func setBusinessName(number: Int, name: String) {
+        self.businessNameLabel.text =  String(number) + ". " + name
+        self.businessNameLabel.numberOfLines = 0
+        self.businessNameLabel.sizeToFit()
     }
     func fadeInImageFromURL(imageView :UIImageView, url: NSURL) {
         let request = NSURLRequest(URL: url)

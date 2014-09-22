@@ -1,5 +1,5 @@
 //
-//  Restaurant.swift
+//  Business.swift
 //  Yelp
 //
 //  Created by Yili Aiwazian on 9/17/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Restaurant {
+class Business {
 
     var dictionaryReference = NSDictionary()
     
@@ -16,7 +16,7 @@ class Restaurant {
     var displayPhone = String()
     //var id = String()
     var imageURL = NSURL()
-    var location = RestaurantLocation()
+    var location = BusinessLocation()
     var name = String()
     var rating = Int()
     var ratingImageURL = NSURL()
@@ -48,7 +48,7 @@ class Restaurant {
         }
         // Get the location
         if let locationDictionary = dictionary["location"] as NSDictionary? {
-            self.location = RestaurantLocation(dictionary: locationDictionary)
+            self.location = BusinessLocation(dictionary: locationDictionary)
         }
         // Get the name
         if let name = dictionary["name"] as NSString? {

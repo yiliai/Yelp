@@ -1,5 +1,5 @@
 //
-//  RestaurantsTableViewController.swift
+//  BusinessesTableViewController.swift
 //  Yelp
 //
 //  Created by Yili Aiwazian on 9/17/14.
@@ -16,14 +16,14 @@ let kYelpTokenSecret = NSString(string: "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y")
 let YELP_RED = UIColor(red: 0.87, green: 0.08, blue: 0, alpha: 1.0)
 let PADDING = CGFloat(10)
 
-class RestaurantsTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
-    @IBOutlet weak var restaurantsTableView: UITableView!
+    @IBOutlet weak var businessesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     var searchBar = UISearchBar()
     
     var client = YelpClient()
-    var restaurantsArray = [Restaurant]()
+    var businessesArray = [Business]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +40,11 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
         filterButton.action = "showFilterView"
         
         // Setting up the table view and table cells
-        let restaurantCellNib = UINib(nibName: "RestaurantTableViewCell", bundle: nil);
-        restaurantsTableView.registerNib(restaurantCellNib, forCellReuseIdentifier: "restaurantCell")
-        restaurantsTableView.estimatedRowHeight = 200
-        restaurantsTableView.rowHeight = UITableViewAutomaticDimension
-        restaurantsTableView.separatorStyle = .None
+        let businessCellNib = UINib(nibName: "BusinessTableViewCell", bundle: nil);
+        businessesTableView.registerNib(businessCellNib, forCellReuseIdentifier: "businessCell")
+        businessesTableView.estimatedRowHeight = 200
+        businessesTableView.rowHeight = UITableViewAutomaticDimension
+        businessesTableView.separatorStyle = .None
         
         // Set up the search bar
         self.navigationItem.titleView = searchBar;
@@ -86,21 +86,21 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return restaurantsArray.count
+        return businessesArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as RestaurantTableViewCell
-        let restaurant = restaurantsArray[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("businessCell", forIndexPath: indexPath) as BusinessTableViewCell
+        let business = businessesArray[indexPath.row]
         
-        cell.setRestaurantName(indexPath.row+1, name: restaurant.name)
-        cell.setImage(restaurant.imageURL)
-        cell.setRatingImage(restaurant.ratingImageURL)
+        cell.setBusinessName(indexPath.row+1, name: business.name)
+        cell.setImage(business.imageURL)
+        cell.setRatingImage(business.ratingImageURL)
         
-        cell.setReviewCount(restaurant.reviewCount)
-        cell.setAddress(restaurant.location.address, neighborhoods: restaurant.location.neighborhoods)
-        cell.setCategories(restaurant.categories)
+        cell.setReviewCount(business.reviewCount)
+        cell.setAddress(business.location.address, neighborhoods: business.location.neighborhoods)
+        cell.setCategories(business.categories)
         
         cell.distanceLabel.text = "0.3mi"
         cell.distanceLabel.sizeToFit()
@@ -119,9 +119,9 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
         })
     }
     func searchYelp(query: String) {
-        // Clear the restaurants list array
-        self.restaurantsArray = [Restaurant]()
-        self.restaurantsTableView.reloadData()
+        // Clear the business list array
+        self.businessesArray = [Business]()
+        self.businessesTableView.reloadData()
         
         // Show a progress spinner
         let progressControl = UIActivityIndicatorView()
@@ -139,21 +139,20 @@ class RestaurantsTableViewController: UIViewController, UITableViewDataSource, U
             success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 if let resultsArray = response["businesses"] as [NSDictionary]? {
                     for result in resultsArray {
-                        self.restaurantsArray.append(Restaurant(dictionary: result))
+                        self.businessesArray.append(Business(dictionary: result))
                     }
-                    //self.printRestaurantsArray(self.restaurantsArray)
                     NSLog ("Search DONE")
                     progressControl.removeFromSuperview()
-                    self.restaurantsTableView.reloadData()
+                    self.businessesTableView.reloadData()
                 }
             }) { (operation :AFHTTPRequestOperation!, error :NSError!) -> Void in
                 NSLog("error: \(error.description)");
                 progressControl.removeFromSuperview()
         }
     }
-    func printRestaurantsArray(restaurants: [Restaurant]) {
-        for restaurant in restaurants {
-            NSLog(restaurant.description)
+    func printBusinessesArray(businesses: [Business]) {
+        for business in businesses {
+            NSLog(business.description)
         }
     }
     func colorFromRGB(rgbValue: UInt) -> UIColor {
