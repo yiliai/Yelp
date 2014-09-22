@@ -11,6 +11,8 @@ import UIKit
 class CheckboxTableViewCell: UITableViewCell {
 
     @IBOutlet weak var optionLabel: UILabel!
+    @IBOutlet weak var checkboxImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,8 +20,25 @@ class CheckboxTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        /*if selected {
+            println("Set Selected on \(optionLabel.text) as \(selected)")
+            checkboxImage.image = UIImage(named: "checked")
+        }*/
     }
     
+    func toggleState(state: CheckboxState) {
+        //println("TOGGLE STATE")
+        switch state {
+        case .Collapsed:
+            checkboxImage.image = UIImage(named: "dropdown")
+        case .Checked:
+            checkboxImage.image = UIImage(named: "checked")
+        case .Unchecked:
+            checkboxImage.image = UIImage(named: "unchecked")
+        }
+    }
+}
+
+enum CheckboxState {
+    case Collapsed, Checked, Unchecked
 }

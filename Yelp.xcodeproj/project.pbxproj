@@ -21,6 +21,8 @@
 		3A26E06119CF872600322722 /* DropdownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A26E06019CF872600322722 /* DropdownTableViewCell.xib */; };
 		3A26E06419CF87A200322722 /* CheckboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */; };
 		3A26E06519CF87A200322722 /* CheckboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */; };
+		3A26E06719CFB5E400322722 /* FooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A26E06619CFB5E400322722 /* FooterView.xib */; };
+		3A26E06919CFB70300322722 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26E06819CFB70300322722 /* FooterView.swift */; };
 		3A84358B19CAA80A00C62881 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A84358A19CAA80A00C62881 /* AppDelegate.swift */; };
 		3A84359019CAA80A00C62881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A84358E19CAA80A00C62881 /* Main.storyboard */; };
 		3A84359219CAA80A00C62881 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A84359119CAA80A00C62881 /* Images.xcassets */; };
@@ -58,6 +60,8 @@
 		3A26E06019CF872600322722 /* DropdownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownTableViewCell.xib; sourceTree = "<group>"; };
 		3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckboxTableViewCell.xib; sourceTree = "<group>"; };
 		3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxTableViewCell.swift; sourceTree = "<group>"; };
+		3A26E06619CFB5E400322722 /* FooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterView.xib; sourceTree = "<group>"; };
+		3A26E06819CFB70300322722 /* FooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		3A84358519CAA80A00C62881 /* Yelp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yelp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A84358919CAA80A00C62881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A84358A19CAA80A00C62881 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 				3A26E04719CEAEB600322722 /* SwitchTableViewCell.xib */,
 				3A26E06019CF872600322722 /* DropdownTableViewCell.xib */,
 				3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */,
+				3A26E06619CFB5E400322722 /* FooterView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 				3A26E04619CEAEB600322722 /* SwitchTableViewCell.swift */,
 				3A26E05E19CF870900322722 /* DropdownTableViewCell.swift */,
 				3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */,
+				3A26E06819CFB70300322722 /* FooterView.swift */,
 				3A84359119CAA80A00C62881 /* Images.xcassets */,
 				3A84359319CAA80A00C62881 /* LaunchScreen.xib */,
 				3A84358819CAA80A00C62881 /* Supporting Files */,
@@ -282,6 +288,7 @@
 				3A26E06419CF87A200322722 /* CheckboxTableViewCell.xib in Resources */,
 				3A0139D819CAB0FA0022499F /* RestaurantTableViewCell.xib in Resources */,
 				3A84359019CAA80A00C62881 /* Main.storyboard in Resources */,
+				3A26E06719CFB5E400322722 /* FooterView.xib in Resources */,
 				3A26E04919CEAEB600322722 /* SwitchTableViewCell.xib in Resources */,
 				3A84359519CAA80A00C62881 /* LaunchScreen.xib in Resources */,
 				3A84359219CAA80A00C62881 /* Images.xcassets in Resources */,
@@ -345,6 +352,7 @@
 				3A26E04819CEAEB600322722 /* SwitchTableViewCell.swift in Sources */,
 				3A26E06519CF87A200322722 /* CheckboxTableViewCell.swift in Sources */,
 				3A0139D719CAB0FA0022499F /* RestaurantTableViewCell.swift in Sources */,
+				3A26E06919CFB70300322722 /* FooterView.swift in Sources */,
 				3A26E04519CEA9B000322722 /* FilterSettings.swift in Sources */,
 				3A0139CC19CAA9720022499F /* YelpClient.m in Sources */,
 			);

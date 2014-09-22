@@ -22,13 +22,13 @@ struct FilterSettings {
         
         // Add the sort dropdown
         var sortOption = SingleSelectionOption(name: "Distance", selectionValues: SortOptions.allValues, selectedValue: SortOptions.BestMatched.toRaw(), expanded: false)
-        var sortOptionsArray = [Option]()
-        sortOptionsArray.append(sortOption)
-        var sortSection = FilterSection(name: "Sort by", options: sortOptionsArray)
+        var sortSection = FilterSection(name: "Sort by", options: [sortOption])
         FilterSettings.filterSections.append(sortSection)
 
         // Add the categories section
-        //var categoriesOption = MultipleSelectionOption(name: "Categories", selectionValues: <#[Int]#>, selectedValues: <#[Int]#>, expanded: <#Bool#>)
+        var categoriesOption = MultipleSelectionOption(name: "Categories", selectionValues: CategoryOptions.allValues, selectedValues: [], expanded: false)
+        var categorySection = FilterSection(name: "Categories", options: [categoriesOption])
+        FilterSettings.filterSections.append(categorySection)
     }
 }
 
@@ -59,11 +59,11 @@ class OnOffOption: Option {
 }
 
 class SingleSelectionOption: Option {
-    var selectionValues: [Int]
+    var selectionValues: [String]
     var selectedValue: Int
     var expanded: Bool
     
-    init (name: String, selectionValues: [Int], selectedValue: Int, expanded: Bool) {
+    init (name: String, selectionValues: [String], selectedValue: Int, expanded: Bool) {
         self.selectionValues = selectionValues
         self.selectedValue = selectedValue
         self.expanded = expanded
@@ -72,13 +72,16 @@ class SingleSelectionOption: Option {
 }
 
 class MultipleSelectionOption: Option {
-    var selectionValues: [Int]
-    var selectedValues: [Int]
+    var selectionValues: [String]
+    var selectedValues: NSMutableIndexSet
     var expanded: Bool
     
-    init (name: String, selectionValues: [Int], selectedValues: [Int], expanded: Bool) {
+    init (name: String, selectionValues: [String], selectedValues: [Int], expanded: Bool) {
         self.selectionValues = selectionValues
-        self.selectedValues = selectedValues
+        self.selectedValues = NSMutableIndexSet()
+        for value in selectedValues {
+            self.selectedValues.addIndex(value)
+        }
         self.expanded = expanded
         super.init(name: name)
     }
@@ -88,7 +91,7 @@ enum SortOptions: Int {
     case BestMatched = 0
     case Distance, HighestRated
     
-    func simpleDescription() -> String {
+    func description() -> String {
         switch self {
         case .BestMatched:
             return "Best Matched"
@@ -100,7 +103,7 @@ enum SortOptions: Int {
             return String(self.toRaw())
         }
     }
-    static let allValues = [BestMatched.toRaw(), Distance.toRaw(), HighestRated.toRaw()]
+    static let allValues = [BestMatched.description(), Distance.description(), HighestRated.description()]
 }
 enum DistanceOptions: Int {
     case Auto = 0
@@ -126,7 +129,7 @@ enum DistanceOptions: Int {
 enum CategoryOptions: Int {
     case ActiveLife = 0
     case ArtsEntertainment, Automotive, BeautySpas, Bicycles, Education,EventPlanning, FinancialServices, Food, HealthMedical, HomeServices, HotelsTravel, MassMedia, Nightlife, Pets, Professional, PublicServices, RealEstate, Religious, Restaurants, Shopping
-    func simpleDescription() -> String {
+    func description() -> String {
         switch self {
         case .ActiveLife:
             return "Active Life"
@@ -140,6 +143,15 @@ enum CategoryOptions: Int {
             return "Bicycles"
         default:
             return String(self.toRaw())
+        }
+    }
+    static var allValues: [String] {
+        get {
+            var array = [String]()
+            for i in 0...20 {
+                array.append(CategoryOptions.fromRaw(i)!.description())
+            }
+            return array
         }
     }
 }

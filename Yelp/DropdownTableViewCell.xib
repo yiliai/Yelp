@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="DropdownTableViewCell" customModule="Yelp" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dropdownCell" id="KGk-i7-Jjw" customClass="DropdownTableViewCell" customModule="Yelp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -19,18 +19,9 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown" translatesAutoresizingMaskIntoConstraints="NO" id="MZI-vg-vLT">
-                        <rect key="frame" x="297" y="18" width="15" height="9"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="20o-i4-FLy"/>
-                            <constraint firstAttribute="height" constant="9" id="WIC-FB-SMS"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="l1e-J6-Hzt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="4T6-kF-haf"/>
-                    <constraint firstAttribute="trailing" secondItem="MZI-vg-vLT" secondAttribute="trailing" constant="8" id="HVG-vT-I0S"/>
-                    <constraint firstItem="MZI-vg-vLT" firstAttribute="centerY" secondItem="l1e-J6-Hzt" secondAttribute="centerY" constant="0.5" id="hDa-kE-PkA"/>
                     <constraint firstItem="l1e-J6-Hzt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="hx6-MN-q8z"/>
                     <constraint firstAttribute="bottom" secondItem="l1e-J6-Hzt" secondAttribute="bottom" constant="14" id="rRC-uk-a1P"/>
                 </constraints>
@@ -41,7 +32,4 @@
             <point key="canvasLocation" x="139" y="153"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="dropdown" width="15" height="9"/>
-    </resources>
 </document>
