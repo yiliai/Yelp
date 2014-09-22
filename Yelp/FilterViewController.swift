@@ -37,13 +37,12 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         let checkboxCellNib = UINib(nibName: "CheckboxTableViewCell", bundle: nil);
         filterSettingsTableView.registerNib(checkboxCellNib, forCellReuseIdentifier: "checkboxCell")
     }
-    
     func cancelAction() {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             NSLog("Dismissing the filter view")
+            FilterSettings.cancel()
         })
     }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         //NSLog ("numberOfSectionsInTableView:\(FilterSettings.filterSections.count)")
         return FilterSettings.filterSections.count
@@ -67,7 +66,6 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         //println("\(totalRows) ROWS IN SECTION \(section)")
         return totalRows
     }
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return ROW_HEIGHT
     }
@@ -81,7 +79,6 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if let singleSelection = option as? SingleSelectionOption {
             let cell = filterSettingsTableView.dequeueReusableCellWithIdentifier("checkboxCell", forIndexPath: indexPath) as CheckboxTableViewCell
-
             if !singleSelection.expanded {
                 cell.optionLabel.text = singleSelection.selectionValues[singleSelection.selectedValue]
                 cell.toggleState(CheckboxState.Collapsed)
@@ -123,7 +120,6 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
             button.tag = section
             button.addTarget(self, action: "tapOnSeeAll:", forControlEvents: UIControlEvents.TouchUpInside)
             return footerView
-
         }
         return nil
     }

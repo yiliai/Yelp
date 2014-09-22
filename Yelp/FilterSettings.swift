@@ -11,7 +11,8 @@ import Foundation
 struct FilterSettings {
     
     static var filterSections = [FilterSection]()
-    
+    static var filterSectionsSaved = [FilterSection]()
+
     init() {
         // Add the deals section
         var dealsOption = OnOffOption(name: "Deals", onOff: false)
@@ -21,14 +22,35 @@ struct FilterSettings {
         FilterSettings.filterSections.append(popularSection)
         
         // Add the sort dropdown
-        var sortOption = SingleSelectionOption(name: "Distance", selectionValues: SortOptions.allValues, selectedValue: SortOptions.BestMatched.toRaw(), expanded: false)
+        var sortOption = SingleSelectionOption(name: "Sort", selectionValues: SortOptions.allValues, selectedValue: SortOptions.BestMatched.toRaw(), expanded: false)
         var sortSection = FilterSection(name: "Sort by", options: [sortOption])
         FilterSettings.filterSections.append(sortSection)
+
+        // Add the distance dropdown
+        var distanceOption = SingleSelectionOption(name: "Distance", selectionValues: DistanceOptions.allValues, selectedValue: DistanceOptions.Auto.toRaw(), expanded: false)
+        var distanceSection = FilterSection(name: "Distance", options: [distanceOption])
+        FilterSettings.filterSections.append(distanceSection)
 
         // Add the categories section
         var categoriesOption = MultipleSelectionOption(name: "Categories", selectionValues: CategoryOptions.allValues, selectedValues: [], expanded: false)
         var categorySection = FilterSection(name: "Categories", options: [categoriesOption])
         FilterSettings.filterSections.append(categorySection)
+        
+        FilterSettings.save()
+    }
+    static func save() {
+        FilterSettings.filterSectionsSaved.removeAll(keepCapacity: true)
+        for section in FilterSettings.filterSections {
+            let newSection = FilterSection(section: section)
+            FilterSettings.filterSectionsSaved.append(newSection)
+        }
+    }
+    static func cancel() {
+        FilterSettings.filterSections.removeAll(keepCapacity: true)
+        for section in FilterSettings.filterSectionsSaved {
+            let newSection = FilterSection(section: section)
+            FilterSettings.filterSections.append(newSection)
+        }
     }
 }
 
@@ -39,6 +61,20 @@ class FilterSection {
     init (name: String, options: [Option]) {
         self.sectionName = name
         optionsArray = options
+    }
+    init (section: FilterSection) {
+        for option in section.optionsArray {
+            if let onOffOption = option as? OnOffOption {
+                optionsArray.append(OnOffOption(option: onOffOption))
+            }
+            else if let singleSelection = option as? SingleSelectionOption {
+                optionsArray.append(SingleSelectionOption(option:singleSelection))
+            }
+            else if let multipleSelection = option as? MultipleSelectionOption {
+                optionsArray.append(MultipleSelectionOption(option:multipleSelection))
+            }
+        }
+        self.sectionName = section.sectionName
     }
 }
 
@@ -56,6 +92,10 @@ class OnOffOption: Option {
         self.onOffState = onOff
         super.init(name: name)
     }
+    init (option: OnOffOption) {
+        self.onOffState = option.onOffState
+        super.init(name: option.optionName)
+    }
 }
 
 class SingleSelectionOption: Option {
@@ -68,6 +108,12 @@ class SingleSelectionOption: Option {
         self.selectedValue = selectedValue
         self.expanded = expanded
         super.init(name: name)
+    }
+    init (option: SingleSelectionOption) {
+        self.selectedValue = option.selectedValue
+        self.selectionValues = option.selectionValues
+        self.expanded = option.expanded
+        super.init(name: option.optionName)
     }
 }
 
@@ -84,6 +130,18 @@ class MultipleSelectionOption: Option {
         }
         self.expanded = expanded
         super.init(name: name)
+    }
+    init (option: MultipleSelectionOption) {
+        self.selectionValues = option.selectionValues
+        self.selectedValues = NSMutableIndexSet()
+        
+        var index = option.selectedValues.firstIndex
+        while (index != NSNotFound) {
+            self.selectedValues.addIndex(index)
+            index = option.selectedValues.indexGreaterThanIndex(index)
+        }
+        self.expanded = option.expanded
+        super.init(name: option.optionName)
     }
 }
 
@@ -109,7 +167,7 @@ enum DistanceOptions: Int {
     case Auto = 0
     case OneBlock, FiveBlocks, OneMile, FiveMiles
     
-    func simpleDescription() -> String {
+    func description() -> String {
         switch self {
         case .Auto:
             return "Auto"
@@ -125,10 +183,19 @@ enum DistanceOptions: Int {
             return String(self.toRaw())
         }
     }
+    static var allValues: [String] {
+        get {
+            var array = [String]()
+            for i in 0...4 {
+                array.append(DistanceOptions.fromRaw(i)!.description())
+            }
+            return array
+        }
+    }
 }
 enum CategoryOptions: Int {
     case ActiveLife = 0
-    case ArtsEntertainment, Automotive, BeautySpas, Bicycles, Education,EventPlanning, FinancialServices, Food, HealthMedical, HomeServices, HotelsTravel, MassMedia, Nightlife, Pets, Professional, PublicServices, RealEstate, Religious, Restaurants, Shopping
+    case ArtsEntertainment, Automotive, BeautySpas, Bicycles, Education, EventPlanning, FinancialServices, Food, HealthMedical, HomeServices, HotelsTravel, MassMedia, Nightlife, Pets, Professional, PublicServices, RealEstate, Religious, Restaurants, Shopping
     func description() -> String {
         switch self {
         case .ActiveLife:
@@ -141,6 +208,38 @@ enum CategoryOptions: Int {
             return "Beauty & Spas"
         case .Bicycles:
             return "Bicycles"
+        case .Education:
+            return "Education"
+        case .EventPlanning:
+            return "Event Planning"
+        case .FinancialServices:
+            return "Financial Services"
+        case .Food:
+            return "Food"
+        case .HealthMedical:
+            return "Health & Medical"
+        case .HomeServices:
+            return "Home Services"
+        case .HotelsTravel:
+            return "Hotels & Travel"
+        case .MassMedia:
+            return "Mass Media"
+        case .Nightlife:
+            return "Nightlife"
+        case .Pets:
+            return "Pets"
+        case .Professional:
+            return "Professional Services"
+        case .PublicServices:
+            return "Public Services"
+        case .RealEstate:
+            return "Real Estate"
+        case .Religious:
+            return "Religious"
+        case .Restaurants:
+            return "Restaurants"
+        case .Shopping:
+            return "Shopping"
         default:
             return String(self.toRaw())
         }
