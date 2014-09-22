@@ -15,24 +15,24 @@ struct FilterSettings {
 
     init() {
         // Add the deals section
-        var dealsOption = OnOffOption(name: "Deals", onOff: false)
+        var dealsOption = OnOffOption(name: "Deals", key: "deals_filter", onOff: false)
         var popularOptionsArray = [Option]()
         popularOptionsArray.append(dealsOption)
         var popularSection = FilterSection(name: "Most Popular", options: popularOptionsArray)
         FilterSettings.filterSections.append(popularSection)
         
         // Add the sort dropdown
-        var sortOption = SingleSelectionOption(name: "Sort", selectionValues: SortOptions.allValues, selectedValue: SortOptions.BestMatched.toRaw(), expanded: false)
+        var sortOption = SingleSelectionOption(name: "Sort", key: SortOptions.key, queryValues: SortOptions.queryValues, displayValues: SortOptions.allValues, selected: SortOptions.BestMatched.toRaw(), expanded: false)
         var sortSection = FilterSection(name: "Sort by", options: [sortOption])
         FilterSettings.filterSections.append(sortSection)
 
         // Add the distance dropdown
-        var distanceOption = SingleSelectionOption(name: "Distance", selectionValues: DistanceOptions.allValues, selectedValue: DistanceOptions.Auto.toRaw(), expanded: false)
+        var distanceOption = SingleSelectionOption(name: "Distance", key: DistanceOptions.key, queryValues: DistanceOptions.queryValues, displayValues: DistanceOptions.allValues, selected: DistanceOptions.Auto.toRaw(), expanded: false)
         var distanceSection = FilterSection(name: "Distance", options: [distanceOption])
         FilterSettings.filterSections.append(distanceSection)
 
         // Add the categories section
-        var categoriesOption = MultipleSelectionOption(name: "Categories", selectionValues: CategoryOptions.allValues, selectedValues: [], expanded: false)
+        var categoriesOption = MultipleSelectionOption(name: "Categories", key: CategoryOptions.key, queryValues: CategoryOptions.queryValues, displayValues: CategoryOptions.allValues, selectedValues: [], expanded: false)
         var categorySection = FilterSection(name: "Categories", options: [categoriesOption])
         FilterSettings.filterSections.append(categorySection)
         
@@ -51,6 +51,13 @@ struct FilterSettings {
             let newSection = FilterSection(section: section)
             FilterSettings.filterSections.append(newSection)
         }
+    }
+    static func getParameters() -> NSDictionary {
+        var parameters = NSMutableDictionary()
+        for section in FilterSettings.filterSections {
+            parameters.addEntriesFromDictionary(section.getParameters())
+        }
+        return parameters
     }
 }
 
@@ -76,63 +83,99 @@ class FilterSection {
         }
         self.sectionName = section.sectionName
     }
+    func getParameters() -> NSDictionary {
+        //var query =
+        var parameters = NSMutableDictionary()
+        for option in optionsArray {
+            let optionParameters = option.getParameters()
+            parameters.addEntriesFromDictionary(optionParameters)
+        }
+        return parameters
+    }
 }
 
-class Option {
-    var optionName = ""
-    init (name: String) {
-        self.optionName = name
-    }
+protocol Option {
+    func getParameters() -> NSDictionary
 }
 
 class OnOffOption: Option {
     var onOffState: Bool
-    
-    init (name: String, onOff: Bool) {
+    var name = ""
+    var key = ""
+    init (name: String, key: String, onOff: Bool) {
+        self.name = name
+        self.key = key
         self.onOffState = onOff
-        super.init(name: name)
     }
     init (option: OnOffOption) {
+        self.name = option.name
+        self.key = option.key
         self.onOffState = option.onOffState
-        super.init(name: option.optionName)
+    }
+    func getParameters() -> NSDictionary {
+        var parameter = Dictionary<String,Bool>()
+        if onOffState {
+            parameter[key] = onOffState
+        }
+        return parameter
     }
 }
 
 class SingleSelectionOption: Option {
-    var selectionValues: [String]
-    var selectedValue: Int
+    var name = ""
+    var key = ""
+    var queryValues: [Int]
+    var displayValues: [String]
+    var selected: Int
     var expanded: Bool
     
-    init (name: String, selectionValues: [String], selectedValue: Int, expanded: Bool) {
-        self.selectionValues = selectionValues
-        self.selectedValue = selectedValue
+    init (name: String, key: String, queryValues: [Int], displayValues: [String], selected: Int, expanded: Bool) {
+        self.name = name
+        self.key = key
+        self.queryValues = queryValues
+        self.displayValues = displayValues
+        self.selected = selected
         self.expanded = expanded
-        super.init(name: name)
     }
     init (option: SingleSelectionOption) {
-        self.selectedValue = option.selectedValue
-        self.selectionValues = option.selectionValues
+        self.name = option.name
+        self.key = option.key
+        self.queryValues = option.queryValues
+        self.selected = option.selected
+        self.displayValues = option.displayValues
         self.expanded = option.expanded
-        super.init(name: option.optionName)
+    }
+    func getParameters() -> NSDictionary {
+        var parameter = Dictionary<String,Int>()
+        parameter[key] = queryValues[selected]
+        return parameter
     }
 }
 
 class MultipleSelectionOption: Option {
-    var selectionValues: [String]
+    var name = ""
+    var key = ""
+    var queryValues: [String]
+    var displayValues: [String]
     var selectedValues: NSMutableIndexSet
     var expanded: Bool
     
-    init (name: String, selectionValues: [String], selectedValues: [Int], expanded: Bool) {
-        self.selectionValues = selectionValues
+    init (name: String, key: String, queryValues: [String], displayValues: [String], selectedValues: [Int], expanded: Bool) {
+        self.name = name
+        self.key = key
+        self.queryValues = queryValues
+        self.displayValues = displayValues
         self.selectedValues = NSMutableIndexSet()
         for value in selectedValues {
             self.selectedValues.addIndex(value)
         }
         self.expanded = expanded
-        super.init(name: name)
     }
     init (option: MultipleSelectionOption) {
-        self.selectionValues = option.selectionValues
+        self.name = option.name
+        self.key = option.key
+        self.queryValues = option.queryValues
+        self.displayValues = option.displayValues
         self.selectedValues = NSMutableIndexSet()
         
         var index = option.selectedValues.firstIndex
@@ -141,7 +184,25 @@ class MultipleSelectionOption: Option {
             index = option.selectedValues.indexGreaterThanIndex(index)
         }
         self.expanded = option.expanded
-        super.init(name: option.optionName)
+    }
+    func getParameters() -> NSDictionary {
+        var parameter = Dictionary<String,String>()
+        var query: String?
+        if (selectedValues.count == 0) {
+            return parameter
+        }
+        var index = self.selectedValues.firstIndex
+        while (index != NSNotFound) {
+            if query == nil {
+                query = queryValues[index]
+            }
+            else {
+                query = query! + "," + queryValues[index]
+            }
+            index = self.selectedValues.indexGreaterThanIndex(index)
+        }
+        parameter[key] = query
+        return parameter
     }
 }
 
@@ -162,6 +223,20 @@ enum SortOptions: Int {
         }
     }
     static let allValues = [BestMatched.description(), Distance.description(), HighestRated.description()]
+    static var key: String {
+        get {
+            return "sort"
+        }
+    }
+    static var queryValues: [Int] {
+        get {
+            var array = [Int]()
+            for i in 0...2 {
+                array.append(i)
+            }
+            return array
+        }
+    }
 }
 enum DistanceOptions: Int {
     case Auto = 0
@@ -183,6 +258,22 @@ enum DistanceOptions: Int {
             return String(self.toRaw())
         }
     }
+    func queryValue() -> Int {
+        switch self {
+        case .Auto:
+            return 0
+        case .OneBlock:
+            return 100
+        case .FiveBlocks:
+            return 500
+        case .OneMile:
+            return 1600
+        case .FiveMiles:
+            return 8000
+        default:
+            return self.toRaw()
+        }
+    }
     static var allValues: [String] {
         get {
             var array = [String]()
@@ -190,6 +281,20 @@ enum DistanceOptions: Int {
                 array.append(DistanceOptions.fromRaw(i)!.description())
             }
             return array
+        }
+    }
+    static var queryValues: [Int] {
+        get {
+            var array = [Int]()
+            for i in 0...4 {
+                array.append(DistanceOptions.fromRaw(i)!.queryValue())
+            }
+            return array
+        }
+    }
+    static var key: String {
+        get {
+            return "radius"
         }
     }
 }
@@ -235,11 +340,59 @@ enum CategoryOptions: Int {
         case .RealEstate:
             return "Real Estate"
         case .Religious:
-            return "Religious"
+            return "Religious Organizations"
         case .Restaurants:
             return "Restaurants"
         case .Shopping:
             return "Shopping"
+        default:
+            return String(self.toRaw())
+        }
+    }
+    func queryValue() -> String {
+        switch self {
+        case .ActiveLife:
+            return "active"
+        case .ArtsEntertainment:
+            return "arts"
+        case .Automotive:
+            return "auto"
+        case .BeautySpas:
+            return "beautysvc"
+        case .Bicycles:
+            return "bicycles"
+        case .Education:
+            return "education"
+        case .EventPlanning:
+            return "eventservices"
+        case .FinancialServices:
+            return "financialservices"
+        case .Food:
+            return "food"
+        case .HealthMedical:
+            return "health"
+        case .HomeServices:
+            return "homeservices"
+        case .HotelsTravel:
+            return "hotelstravel"
+        case .MassMedia:
+            return "massmedia"
+        case .Nightlife:
+            return "nightlife"
+        case .Pets:
+            return "pets"
+        case .Professional:
+            return "professional"
+        case .PublicServices:
+            return "publicservicesgovt"
+        case .RealEstate:
+            return "realestate"
+        case .Religious:
+            return "religiousorgs"
+        case .Restaurants:
+            return "restaurants"
+        case .Shopping:
+            return "shopping"
         default:
             return String(self.toRaw())
         }
@@ -253,4 +406,19 @@ enum CategoryOptions: Int {
             return array
         }
     }
+    static var key: String {
+        get {
+            return "category_filter"
+        }
+    }
+    static var queryValues: [String] {
+        get {
+            var array = [String]()
+            for i in 0...20 {
+                array.append(CategoryOptions.fromRaw(i)!.queryValue())
+            }
+            return array
+        }
+    }
+
 }

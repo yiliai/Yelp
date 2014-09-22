@@ -13,6 +13,8 @@ class SwitchTableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var settingSwitch: UISwitch!
     
+    var indexPath: NSIndexPath?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,4 +26,12 @@ class SwitchTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func toggleSwitch(sender: AnyObject) {
+        if indexPath == nil {
+            return
+        }
+        if let option = FilterSettings.filterSections[indexPath!.section].optionsArray[indexPath!.row] as? OnOffOption {
+            option.onOffState = !option.onOffState
+        }
+    }
 }

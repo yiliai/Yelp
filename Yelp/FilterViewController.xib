@@ -9,6 +9,7 @@
                 <outlet property="cancelButton" destination="YCe-xD-29z" id="5bV-Ew-6OP"/>
                 <outlet property="filterSettingsTableView" destination="wg1-wn-62Q" id="jZo-ay-mC4"/>
                 <outlet property="navigationBar" destination="QFY-p4-94n" id="HB9-3r-Izg"/>
+                <outlet property="searchButton" destination="2tp-Ac-vVP" id="euI-zJ-QW4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

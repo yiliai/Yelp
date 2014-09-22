@@ -15,8 +15,9 @@ let kYelpTokenSecret = NSString(string: "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y")
 
 let YELP_RED = UIColor(red: 0.87, green: 0.08, blue: 0, alpha: 1.0)
 let PADDING = CGFloat(10)
+let DEFAULT_LOCATION = "San Francisco"
 
-class BusinessesTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FilterDelegate {
 
     @IBOutlet weak var businessesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
@@ -49,25 +50,8 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         // Set up the search bar
         self.navigationItem.titleView = searchBar;
         searchBar.delegate = self
-        
-       /* NSDictionary* barButtonItemAttributes =
-        {NSFontAttributeName:
-            UIFont   (fontWithName:@"Georgia" size:20.0f],
-            NSForegroundColorAttributeName:
-            [UIColor colorWithRed:141.0/255.0 green:209.0/255.0 blue:205.0/255.0 alpha:1.0]
-        }
-        
-        filterButton.setTitleTextAttributes(attributes: [NSDictionary dictionar AnyObject]!, forState: <#UIControlState#>)
-        
-        
-        [buttonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-            [UIFont fontWithName:@"Helvetica-Bold" size:26.0], NSFontAttributeName,
-            [UIColor greenColor], NSForegroundColorAttributeName,
-            nil]
-            forState:UIControlStateNormal];*/
-
-        // Initial search term
         searchYelp("restaurant")
+        searchBar.text = "restaurant"
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,11 +98,15 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     func showFilterView() {
         NSLog("Tapped on filter")
         let filterViewController = FilterViewController(nibName: "FilterViewController", bundle: nil)
+        filterViewController.filterDelegate = self
+        
         self.navigationController?.presentViewController(filterViewController, animated: true, completion: { () -> Void in
+            
             NSLog("Successfully pushed the filter view")
         })
     }
-    func searchYelp(query: String) {
+    
+    func searchYelp(parameters: NSDictionary) {
         // Clear the business list array
         self.businessesArray = [Business]()
         self.businessesTableView.reloadData()
@@ -134,8 +122,11 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = YelpClient(consumerKey: kYelpConsumerKey, consumerSecret: kYelpConsumerSecret, accessToken: kYelpToken, accessSecret: kYelpTokenSecret)
-        NSLog("Searching for...\(query)")
-        self.client.searchWithTerm(query,
+    
+        let term = parameters.valueForKey("term") as String
+        NSLog("Searching for...\(term)")
+        
+        self.client.searchWithDictionary(parameters,
             success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 if let resultsArray = response["businesses"] as [NSDictionary]? {
                     for result in resultsArray {
@@ -150,6 +141,12 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
                 progressControl.removeFromSuperview()
         }
     }
+    
+    func searchYelp(query: String) {
+        var parameters = ["term":query, "location":DEFAULT_LOCATION]
+        searchYelp(parameters)
+    }
+    
     func printBusinessesArray(businesses: [Business]) {
         for business in businesses {
             NSLog(business.description)
@@ -163,4 +160,15 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
             alpha: CGFloat(1.0)
         )
     }
+    func applyFilter() {
+        var parameters = ["term":searchBar.text, "location":DEFAULT_LOCATION] as NSMutableDictionary
+
+        parameters.addEntriesFromDictionary(FilterSettings.getParameters())
+        println("Search query: \(parameters)")
+        searchYelp(parameters)
+    }
+}
+
+protocol FilterDelegate {
+    func applyFilter()
 }

@@ -15,8 +15,10 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet weak var filterSettingsTableView: UITableView!
-    var expandSection = -1
+
+    var filterDelegate: FilterDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,9 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         
         cancelButton.target = self
         cancelButton.action = "cancelAction"
+        searchButton.target = self
+        searchButton.action = "searchAction"
+        
         filterSettingsTableView.dataSource = self
         filterSettingsTableView.delegate = self
 
@@ -43,6 +48,13 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
             FilterSettings.cancel()
         })
     }
+    func searchAction() {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            NSLog("Searching based on the filters...")
+            FilterSettings.save()
+            self.filterDelegate?.applyFilter()
+        })
+    }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         //NSLog ("numberOfSectionsInTableView:\(FilterSettings.filterSections.count)")
         return FilterSettings.filterSections.count
@@ -57,10 +69,10 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
                 totalRows += 1
             }
             else if let singleSelection = option as? SingleSelectionOption {
-                totalRows += singleSelection.expanded ? singleSelection.selectionValues.count : 1
+                totalRows += singleSelection.expanded ? singleSelection.displayValues.count : 1
             }
             else if let multipleSelection = option as? MultipleSelectionOption {
-                totalRows += multipleSelection.expanded ? multipleSelection.selectionValues.count : 3
+                totalRows += multipleSelection.expanded ? multipleSelection.displayValues.count : 3
             }
         }
         //println("\(totalRows) ROWS IN SECTION \(section)")
@@ -73,19 +85,20 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         let option = FilterSettings.filterSections[indexPath.section].optionsArray[0]
         if let onOff = option as? OnOffOption  {
             let cell = filterSettingsTableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as SwitchTableViewCell
-            cell.label.text = onOff.optionName
+            cell.label.text = onOff.name
             cell.settingSwitch.setOn(onOff.onOffState, animated: false)
+            cell.indexPath = indexPath
             return cell
         }
         else if let singleSelection = option as? SingleSelectionOption {
             let cell = filterSettingsTableView.dequeueReusableCellWithIdentifier("checkboxCell", forIndexPath: indexPath) as CheckboxTableViewCell
             if !singleSelection.expanded {
-                cell.optionLabel.text = singleSelection.selectionValues[singleSelection.selectedValue]
+                cell.optionLabel.text = singleSelection.displayValues[singleSelection.selected]
                 cell.toggleState(CheckboxState.Collapsed)
             }
             else {
-                cell.optionLabel.text = singleSelection.selectionValues[indexPath.row]
-                if singleSelection.selectedValue == indexPath.row {
+                cell.optionLabel.text = singleSelection.displayValues[indexPath.row]
+                if singleSelection.selected == indexPath.row {
                     cell.toggleState(CheckboxState.Checked)
                 }
                 else {
@@ -96,7 +109,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if let multipleSelection = option as? MultipleSelectionOption {
             let cell = filterSettingsTableView.dequeueReusableCellWithIdentifier("checkboxCell", forIndexPath: indexPath) as CheckboxTableViewCell
-            cell.optionLabel.text = multipleSelection.selectionValues[indexPath.row]
+            cell.optionLabel.text = multipleSelection.displayValues[indexPath.row]
             multipleSelection.selectedValues.containsIndex(indexPath.row) ? cell.toggleState(CheckboxState.Checked) : cell.toggleState(CheckboxState.Unchecked)
             return cell
         }
@@ -136,7 +149,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         let option = FilterSettings.filterSections[indexPath.section].optionsArray[0]
         if let singleSelection = option as? SingleSelectionOption {
             var indexPathArray = [NSIndexPath]()
-            for i in 0...singleSelection.selectionValues.count-1 {
+            for i in 0...singleSelection.displayValues.count-1 {
                 let newIndexPath = NSIndexPath(forRow: i, inSection: indexPath.section)
                 indexPathArray.append(newIndexPath)
             }
@@ -150,7 +163,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
             }
             else {
                 singleSelection.expanded = false
-                singleSelection.selectedValue = indexPath.row
+                singleSelection.selected = indexPath.row
                 //println("DELETING...\(indexPathArray.count) rows")
                 filterSettingsTableView.beginUpdates()
                 filterSettingsTableView.deleteRowsAtIndexPaths(indexPathArray, withRowAnimation: UITableViewRowAnimation.Middle)
@@ -173,7 +186,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
 
         if let multipleSelection = option as? MultipleSelectionOption {
             var indexPathArray = [NSIndexPath]()
-            for i in 3...multipleSelection.selectionValues.count-1 {
+            for i in 3...multipleSelection.displayValues.count-1 {
                 let newIndexPath = NSIndexPath(forRow: i, inSection: section)
                 indexPathArray.append(newIndexPath)
             }
@@ -184,8 +197,4 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         
         }
     }
-}
-
-enum CellType {
-    case Switch, Dropdown, CheckboxChecked, CheckboxUnchecked
 }

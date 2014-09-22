@@ -28,4 +28,11 @@
     return [self GET:@"search" parameters:parameters success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation *)searchWithDictionary:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
+    
+    return [self GET:@"search" parameters:parameters success:success failure:failure];
+}
+
 @end
