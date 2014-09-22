@@ -32,15 +32,9 @@
                             <constraint firstAttribute="trailing" secondItem="tfb-wn-q3m" secondAttribute="trailing" id="ujc-jl-HCH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="6Q2-zI-20f">
-                        <barButtonItem key="leftBarButtonItem" title="Filter" id="iU8-pA-b57">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="RLu-cS-34E"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="6Q2-zI-20f"/>
                     <connections>
                         <outlet property="businessesTableView" destination="tfb-wn-q3m" id="If7-21-lS1"/>
-                        <outlet property="filterButton" destination="iU8-pA-b57" id="HOn-UW-qgt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

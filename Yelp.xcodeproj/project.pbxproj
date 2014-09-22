@@ -25,6 +25,7 @@
 		3AE56ADF19CFD1E2000CF0CB /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56ADA19CFD1E2000CF0CB /* Business.swift */; };
 		3AE56AE219CFD239000CF0CB /* BusinessTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AE019CFD239000CF0CB /* BusinessTableViewCell.xib */; };
 		3AE56AE319CFD239000CF0CB /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AE119CFD239000CF0CB /* BusinessTableViewCell.swift */; };
+		3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AE819D01220000CF0CB /* YelpButton.swift */; };
 		8F035F5A8ED64F7AA14291A1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABFF0F7B11F41F299A2DD4A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		3AE56ADA19CFD1E2000CF0CB /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		3AE56AE019CFD239000CF0CB /* BusinessTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessTableViewCell.xib; sourceTree = "<group>"; };
 		3AE56AE119CFD239000CF0CB /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
+		3AE56AE819D01220000CF0CB /* YelpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpButton.swift; sourceTree = "<group>"; };
 		6ABFF0F7B11F41F299A2DD4A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				3A26E04119CEA0DD00322722 /* FilterViewController.xib */,
 				3A26E04719CEAEB600322722 /* SwitchTableViewCell.xib */,
 				3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */,
+				3AE56AE819D01220000CF0CB /* YelpButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				3A84358B19CAA80A00C62881 /* AppDelegate.swift in Sources */,
 				3AE56ADB19CFD1E2000CF0CB /* BusinessesTableViewController.swift in Sources */,
 				3AE56AE319CFD239000CF0CB /* BusinessTableViewCell.swift in Sources */,
+				3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */,
 				3A26E04819CEAEB600322722 /* SwitchTableViewCell.swift in Sources */,
 				3A26E06519CF87A200322722 /* CheckboxTableViewCell.swift in Sources */,
 				3A26E04519CEA9B000322722 /* FilterSettings.swift in Sources */,

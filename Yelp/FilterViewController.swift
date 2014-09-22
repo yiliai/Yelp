@@ -13,9 +13,8 @@ let ROW_HEIGHT = CGFloat(44)
 
 class FilterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var filterNavigationItem: UINavigationItem!
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet weak var filterSettingsTableView: UITableView!
 
     var filterDelegate: FilterDelegate?
@@ -25,10 +24,19 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         navigationBar.barTintColor = YELP_RED
         navigationBar.tintColor = UIColor.whiteColor()
         
-        cancelButton.target = self
-        cancelButton.action = "cancelAction"
-        searchButton.target = self
-        searchButton.action = "searchAction"
+        // Add the cancel button on the left
+        let cancelButton = YelpButton(text: "Cancel")
+        cancelButton.addTarget(self, action: "cancelAction", forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelBarButton = UIBarButtonItem(customView: cancelButton)
+        var negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        negativeSpacer.width = -8;
+        filterNavigationItem.setLeftBarButtonItems([negativeSpacer, cancelBarButton], animated: false)
+        
+        // Add the search button on the right
+        let searchButton = YelpButton(text: "Search")
+        searchButton.addTarget(self, action: "searchAction", forControlEvents: UIControlEvents.TouchUpInside)
+        let searchBarButton = UIBarButtonItem(customView: searchButton)
+        filterNavigationItem.setRightBarButtonItems([negativeSpacer, searchBarButton], animated: false)
         
         filterSettingsTableView.dataSource = self
         filterSettingsTableView.delegate = self

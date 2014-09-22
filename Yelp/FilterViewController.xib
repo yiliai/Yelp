@@ -6,10 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="Yelp" customModuleProvider="target">
             <connections>
-                <outlet property="cancelButton" destination="YCe-xD-29z" id="5bV-Ew-6OP"/>
+                <outlet property="filterNavigationItem" destination="EwQ-bm-MvI" id="eJx-kB-6iY"/>
                 <outlet property="filterSettingsTableView" destination="wg1-wn-62Q" id="jZo-ay-mC4"/>
                 <outlet property="navigationBar" destination="QFY-p4-94n" id="HB9-3r-Izg"/>
-                <outlet property="searchButton" destination="2tp-Ac-vVP" id="euI-zJ-QW4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,10 +26,7 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </textAttributes>
                     <items>
-                        <navigationItem title="Filter" id="EwQ-bm-MvI">
-                            <barButtonItem key="leftBarButtonItem" title="Cancel" id="YCe-xD-29z"/>
-                            <barButtonItem key="rightBarButtonItem" title="Search" id="2tp-Ac-vVP"/>
-                        </navigationItem>
+                        <navigationItem title="Filter" id="EwQ-bm-MvI"/>
                     </items>
                 </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="wg1-wn-62Q">

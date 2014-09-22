@@ -20,25 +20,33 @@ let DEFAULT_LOCATION = "San Francisco"
 class BusinessesTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FilterDelegate {
 
     @IBOutlet weak var businessesTableView: UITableView!
-    @IBOutlet weak var filterButton: UIBarButtonItem!
     var searchBar = UISearchBar()
     
     var client = YelpClient()
     var businessesArray = [Business]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-
         // Skin the navigation bar
         self.navigationController?.navigationBar.barTintColor = YELP_RED
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        filterButton.target = self
-        filterButton.action = "showFilterView"
+        
+        // Add the filter button on the left
+        let filterButton = YelpButton(text: "Filter")
+        filterButton.addTarget(self, action: "showFilterView", forControlEvents: UIControlEvents.TouchUpInside)
+        let filterBarButton = UIBarButtonItem(customView: filterButton)
+        var negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        negativeSpacer.width = -8;
+        self.navigationItem.setLeftBarButtonItems([negativeSpacer, filterBarButton], animated: false)
+    
+        // Add the map button on the right
+        let mapButton = YelpButton(text: "Map")
+        mapButton.addTarget(self, action: "showFilterView", forControlEvents: UIControlEvents.TouchUpInside)
+        let mapBarButton = UIBarButtonItem(customView: mapButton)
+        self.navigationItem.setRightBarButtonItems([negativeSpacer, mapBarButton], animated: false)
         
         // Setting up the table view and table cells
         let businessCellNib = UINib(nibName: "BusinessTableViewCell", bundle: nil);
