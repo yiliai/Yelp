@@ -26,6 +26,8 @@
 		3AE56AE219CFD239000CF0CB /* BusinessTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AE019CFD239000CF0CB /* BusinessTableViewCell.xib */; };
 		3AE56AE319CFD239000CF0CB /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AE119CFD239000CF0CB /* BusinessTableViewCell.swift */; };
 		3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AE819D01220000CF0CB /* YelpButton.swift */; };
+		3AE56AEE19D11A5F000CF0CB /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */; };
+		3AE56AEF19D11A5F000CF0CB /* ProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */; };
 		8F035F5A8ED64F7AA14291A1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABFF0F7B11F41F299A2DD4A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,8 @@
 		3AE56AE019CFD239000CF0CB /* BusinessTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessTableViewCell.xib; sourceTree = "<group>"; };
 		3AE56AE119CFD239000CF0CB /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
 		3AE56AE819D01220000CF0CB /* YelpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpButton.swift; sourceTree = "<group>"; };
+		3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTableViewCell.swift; sourceTree = "<group>"; };
+		3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressTableViewCell.xib; sourceTree = "<group>"; };
 		6ABFF0F7B11F41F299A2DD4A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -117,6 +121,7 @@
 				3A26E04719CEAEB600322722 /* SwitchTableViewCell.xib */,
 				3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */,
 				3AE56AE819D01220000CF0CB /* YelpButton.swift */,
+				3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				3A26E04019CEA0DD00322722 /* FilterViewController.swift */,
 				3A26E04619CEAEB600322722 /* SwitchTableViewCell.swift */,
 				3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */,
+				3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */,
 				3A84359119CAA80A00C62881 /* Images.xcassets */,
 				3A84359319CAA80A00C62881 /* LaunchScreen.xib */,
 				3A84358819CAA80A00C62881 /* Supporting Files */,
@@ -277,6 +283,7 @@
 			files = (
 				3AE56AE219CFD239000CF0CB /* BusinessTableViewCell.xib in Resources */,
 				3A26E04319CEA0DD00322722 /* FilterViewController.xib in Resources */,
+				3AE56AEF19D11A5F000CF0CB /* ProgressTableViewCell.xib in Resources */,
 				3A26E06419CF87A200322722 /* CheckboxTableViewCell.xib in Resources */,
 				3A84359019CAA80A00C62881 /* Main.storyboard in Resources */,
 				3A26E04919CEAEB600322722 /* SwitchTableViewCell.xib in Resources */,
@@ -334,6 +341,7 @@
 			files = (
 				3A26E04219CEA0DD00322722 /* FilterViewController.swift in Sources */,
 				3AE56ADF19CFD1E2000CF0CB /* Business.swift in Sources */,
+				3AE56AEE19D11A5F000CF0CB /* ProgressTableViewCell.swift in Sources */,
 				3AE56ADE19CFD1E2000CF0CB /* BusinessLocation.swift in Sources */,
 				3A84358B19CAA80A00C62881 /* AppDelegate.swift in Sources */,
 				3AE56ADB19CFD1E2000CF0CB /* BusinessesTableViewController.swift in Sources */,

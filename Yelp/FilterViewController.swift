@@ -34,7 +34,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Add the search button on the right
         let searchButton = YelpButton(text: "Search")
-        searchButton.addTarget(self, action: "searchAction", forControlEvents: UIControlEvents.TouchUpInside)
+        searchButton.addTarget(self, action: "searchAction", forControlEvents: UIControlEvents.TouchDown)
         let searchBarButton = UIBarButtonItem(customView: searchButton)
         filterNavigationItem.setRightBarButtonItems([negativeSpacer, searchBarButton], animated: false)
         
@@ -57,6 +57,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     func searchAction() {
+        NSLog("Searching based on the filters...")
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             NSLog("Searching based on the filters...")
             FilterSettings.save()

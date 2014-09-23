@@ -16,6 +16,7 @@ let kYelpTokenSecret = NSString(string: "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y")
 let YELP_RED = UIColor(red: 0.87, green: 0.08, blue: 0, alpha: 1.0)
 let PADDING = CGFloat(10)
 let DEFAULT_LOCATION = "San Francisco"
+let LIMIT = 20
 
 class BusinessesTableViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FilterDelegate {
 
@@ -24,6 +25,7 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     
     var client = YelpClient()
     var businessesArray = [Business]()
+    var searchParameters = NSMutableDictionary()
 
     
     override func viewDidLoad() {
@@ -51,7 +53,7 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         // Setting up the table view and table cells
         let businessCellNib = UINib(nibName: "BusinessTableViewCell", bundle: nil);
         businessesTableView.registerNib(businessCellNib, forCellReuseIdentifier: "businessCell")
-        businessesTableView.estimatedRowHeight = 200
+        businessesTableView.estimatedRowHeight = 75
         businessesTableView.rowHeight = UITableViewAutomaticDimension
         businessesTableView.separatorStyle = .None
         
@@ -97,6 +99,11 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.distanceLabel.text = "0.3mi"
         cell.distanceLabel.sizeToFit()
         
+        // Check to see if we're hitting the end of the list
+        if (indexPath.row == businessesArray.count-1) {
+            println("At the end of the list")
+            loadMoreResults()
+        }
         return cell
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -114,19 +121,30 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         })
     }
     
-    func searchYelp(parameters: NSDictionary) {
-        // Clear the business list array
-        self.businessesArray = [Business]()
-        self.businessesTableView.reloadData()
+    func loadMoreResults() {
+        // Take the current search parameters and add more to the businesses array
+        var parameters = ["limit": LIMIT, "offset":businessesArray.count, "term": "restaurants", "location": "San Francisco"]
+        searchYelp(parameters, newQuery: false)
+    }
+    
+    func searchYelp(parameters: NSDictionary, newQuery: Bool) {
         
-        // Show a progress spinner
         let progressControl = UIActivityIndicatorView()
-        self.view.addSubview(progressControl)
-        progressControl.hidden = false
-        progressControl.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
-        progressControl.color = UIColor.lightGrayColor()
-        progressControl.frame = CGRectMake(self.view.frame.width/2-PADDING, self.view.frame.height/2-PADDING, 2*PADDING, 2*PADDING)
-        progressControl.startAnimating()
+
+        // Clear the business list array if it's a brand new query
+        if newQuery {
+            businessesArray = [Business]()
+            self.businessesTableView.reloadData()
+            NSLog("Tableview cleared")
+            
+            // Show a progress spinner
+            self.view.addSubview(progressControl)
+            progressControl.hidden = false
+            progressControl.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+            progressControl.color = UIColor.lightGrayColor()
+            progressControl.frame = CGRectMake(self.view.frame.width/2-PADDING, self.view.frame.height/2-PADDING, 2*PADDING, 2*PADDING)
+            progressControl.startAnimating()
+        }
         
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = YelpClient(consumerKey: kYelpConsumerKey, consumerSecret: kYelpConsumerSecret, accessToken: kYelpToken, accessSecret: kYelpTokenSecret)
@@ -139,6 +157,7 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
                 if let resultsArray = response["businesses"] as [NSDictionary]? {
                     for result in resultsArray {
                         self.businessesArray.append(Business(dictionary: result))
+                        //println(self.businessesArray.count)
                     }
                     NSLog ("Search DONE")
                     progressControl.removeFromSuperview()
@@ -152,9 +171,8 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     
     func searchYelp(query: String) {
         var parameters = ["term":query, "location":DEFAULT_LOCATION]
-        searchYelp(parameters)
+        searchYelp(parameters, newQuery: true)
     }
-    
     func printBusinessesArray(businesses: [Business]) {
         for business in businesses {
             NSLog(business.description)
@@ -172,8 +190,9 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         var parameters = ["term":searchBar.text, "location":DEFAULT_LOCATION] as NSMutableDictionary
 
         parameters.addEntriesFromDictionary(FilterSettings.getParameters())
-        println("Search query: \(parameters)")
-        searchYelp(parameters)
+        NSLog("Search query: \(parameters)")
+        searchParameters = parameters
+        searchYelp(parameters, newQuery: true)
     }
 }
 
