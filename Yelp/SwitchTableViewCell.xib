@@ -14,13 +14,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZH9-KI-2o7">
-                        <rect key="frame" x="8" y="14" width="245" height="15"/>
+                        <rect key="frame" x="14" y="14" width="233" height="15"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Igk-yc-9Xg">
-                        <rect key="frame" x="263" y="4" width="51" height="31"/>
+                        <rect key="frame" x="257" y="4" width="51" height="31"/>
                         <connections>
                             <action selector="toggleSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="th8-38-fVV"/>
                         </connections>
@@ -30,9 +30,9 @@
                     <constraint firstItem="ZH9-KI-2o7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="8b8-gG-oZI"/>
                     <constraint firstItem="Igk-yc-9Xg" firstAttribute="leading" secondItem="ZH9-KI-2o7" secondAttribute="trailing" constant="10" id="DNp-A9-L8A"/>
                     <constraint firstItem="ZH9-KI-2o7" firstAttribute="centerY" secondItem="Igk-yc-9Xg" secondAttribute="centerY" constant="2" id="gvv-9q-ti9"/>
-                    <constraint firstAttribute="trailing" secondItem="Igk-yc-9Xg" secondAttribute="trailing" constant="8" id="hMV-fk-UmG"/>
+                    <constraint firstAttribute="trailing" secondItem="Igk-yc-9Xg" secondAttribute="trailing" constant="14" id="hMV-fk-UmG"/>
                     <constraint firstAttribute="bottom" secondItem="ZH9-KI-2o7" secondAttribute="bottom" constant="14" id="jo8-FM-uPh"/>
-                    <constraint firstItem="ZH9-KI-2o7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="oya-GN-QLP"/>
+                    <constraint firstItem="ZH9-KI-2o7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="oya-GN-QLP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -57,6 +57,10 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         businessesTableView.rowHeight = UITableViewAutomaticDimension
         businessesTableView.separatorStyle = .None
         
+        // Set up the last progress bar cell
+        let progressCellNib = UINib(nibName: "ProgressTableViewCell", bundle: nil);
+        businessesTableView.registerNib(progressCellNib, forCellReuseIdentifier: "progressCell")
+        
         // Set up the search bar
         self.navigationItem.titleView = searchBar;
         searchBar.delegate = self
@@ -80,10 +84,26 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return businessesArray.count
+        return businessesArray.count + 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        // Check to see if we're hitting the end of the list
+        if (businessesArray.count == 0) {
+            return UITableViewCell(style: .Default, reuseIdentifier: nil)
+        }
+        else if (indexPath.row == businessesArray.count) {
+            println("At the end of the list")
+            let cell = tableView.dequeueReusableCellWithIdentifier("progressCell", forIndexPath: indexPath) as ProgressTableViewCell
+            cell.progressIndicator.startAnimating()
+            loadMoreResults()
+            
+            if (businessesArray.count == 0) {
+                cell.progressIndicator.hidden = true
+            }
+            return cell
+        }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("businessCell", forIndexPath: indexPath) as BusinessTableViewCell
         let business = businessesArray[indexPath.row]
@@ -99,11 +119,6 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.distanceLabel.text = "0.3mi"
         cell.distanceLabel.sizeToFit()
         
-        // Check to see if we're hitting the end of the list
-        if (indexPath.row == businessesArray.count-1) {
-            println("At the end of the list")
-            loadMoreResults()
-        }
         return cell
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {

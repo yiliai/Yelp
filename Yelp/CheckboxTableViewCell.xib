@@ -14,25 +14,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked" highlightedImage="checked" translatesAutoresizingMaskIntoConstraints="NO" id="egg-kC-bXx">
-                        <rect key="frame" x="280" y="5" width="32" height="32"/>
+                        <rect key="frame" x="274" y="5" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="Onx-Hs-y56"/>
                             <constraint firstAttribute="width" constant="32" id="sUN-Om-MXZ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmm-eC-5S3">
-                        <rect key="frame" x="8" y="14" width="36" height="15"/>
+                        <rect key="frame" x="14" y="14" width="36" height="15"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="egg-kC-bXx" secondAttribute="trailing" constant="8" id="9TP-Ju-Aq8"/>
+                    <constraint firstAttribute="trailing" secondItem="egg-kC-bXx" secondAttribute="trailing" constant="14" id="9TP-Ju-Aq8"/>
                     <constraint firstAttribute="bottom" secondItem="pmm-eC-5S3" secondAttribute="bottom" constant="14" id="L2G-iM-BH8"/>
                     <constraint firstItem="egg-kC-bXx" firstAttribute="centerY" secondItem="pmm-eC-5S3" secondAttribute="centerY" constant="-0.5" id="USO-oc-G4c"/>
                     <constraint firstItem="pmm-eC-5S3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="dAG-wX-eg0"/>
-                    <constraint firstItem="pmm-eC-5S3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="qnd-W9-Ie7"/>
+                    <constraint firstItem="pmm-eC-5S3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="qnd-W9-Ie7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

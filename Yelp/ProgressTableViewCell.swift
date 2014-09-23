@@ -10,6 +10,8 @@ import UIKit
 
 class ProgressTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
