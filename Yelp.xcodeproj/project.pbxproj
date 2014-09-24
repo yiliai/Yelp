@@ -31,6 +31,7 @@
 		3AE56AFE19D16195000CF0CB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AFC19D16195000CF0CB /* MapViewController.swift */; };
 		3AE56AFF19D16195000CF0CB /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AFD19D16195000CF0CB /* MapViewController.xib */; };
 		3AE56B0219D16503000CF0CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE56B0119D16503000CF0CB /* MapKit.framework */; };
+		3AE56B0619D2718D000CF0CB /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56B0519D2718D000CF0CB /* MapAnnotation.swift */; };
 		8F035F5A8ED64F7AA14291A1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABFF0F7B11F41F299A2DD4A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		3AE56AFC19D16195000CF0CB /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3AE56AFD19D16195000CF0CB /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		3AE56B0119D16503000CF0CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3AE56B0519D2718D000CF0CB /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		6ABFF0F7B11F41F299A2DD4A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 				3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */,
 				3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */,
 				3AE56AFC19D16195000CF0CB /* MapViewController.swift */,
+				3AE56B0519D2718D000CF0CB /* MapAnnotation.swift */,
 				3A84359119CAA80A00C62881 /* Images.xcassets */,
 				3A84359319CAA80A00C62881 /* LaunchScreen.xib */,
 				3A84358819CAA80A00C62881 /* Supporting Files */,
@@ -359,6 +362,7 @@
 				3AE56AFE19D16195000CF0CB /* MapViewController.swift in Sources */,
 				3AE56AE319CFD239000CF0CB /* BusinessTableViewCell.swift in Sources */,
 				3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */,
+				3AE56B0619D2718D000CF0CB /* MapAnnotation.swift in Sources */,
 				3A26E04819CEAEB600322722 /* SwitchTableViewCell.swift in Sources */,
 				3A26E06519CF87A200322722 /* CheckboxTableViewCell.swift in Sources */,
 				3A26E04519CEA9B000322722 /* FilterSettings.swift in Sources */,

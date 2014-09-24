@@ -22,6 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         navigationBar.barTintColor = YELP_RED
         navigationBar.tintColor = UIColor.whiteColor()
+        mapView.delegate = self
         
         // Add the cancel button on the left
         let listButton = YelpButton(text: "List")
@@ -33,18 +34,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         var upper: CLLocationCoordinate2D?
         var lower: CLLocationCoordinate2D?
+        var index = 0
         for business in businessesArray!  {
         
             let location = business.location
             let coordinate = location.coordinate
-    
+            index += 1
+            
             if coordinate != nil {
                 if upper == nil {
                     upper = CLLocationCoordinate2DMake(coordinate!.lat, coordinate!.long)
                     lower = CLLocationCoordinate2DMake(coordinate!.lat, coordinate!.long)
                 }
-                let pin = MKPointAnnotation()
-                pin.coordinate = CLLocationCoordinate2D(latitude: coordinate!.lat, longitude: coordinate!.long)
+                //let pin = MKPointAnnotation()
+                let pin = MapAnnotation(markerText: String(index), title: business.name, coordinate: CLLocationCoordinate2D(latitude: coordinate!.lat, longitude: coordinate!.long))
+                //pin.coordinate = CLLocationCoordinate2D(latitude: coordinate!.lat, longitude: coordinate!.long)
                 mapView.addAnnotation(pin)
                 if coordinate!.lat > upper!.latitude {
                     upper!.latitude = coordinate!.lat
@@ -71,6 +75,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if (annotation.isKindOfClass(MapAnnotation)) {
+            let marker = annotation as MapAnnotation
+            var markerView = mapView.dequeueReusableAnnotationViewWithIdentifier("YelpAnnotation")
+            
+            if markerView == nil {
+                markerView = marker.annotationView
+            }
+            else {
+                markerView.annotation = annotation
+            }
+            return markerView
+        }
+        return nil
+    }
+    
     func backAction() {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             NSLog("Dismissing the map view")
