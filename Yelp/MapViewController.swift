@@ -24,34 +24,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         navigationBar.tintColor = UIColor.whiteColor()
         
         // Add the cancel button on the left
-        let cancelButton = YelpButton(text: "Back")
-        cancelButton.addTarget(self, action: "backAction", forControlEvents: UIControlEvents.TouchUpInside)
-        let cancelBarButton = UIBarButtonItem(customView: cancelButton)
+        let listButton = YelpButton(text: "List")
+        listButton.addTarget(self, action: "backAction", forControlEvents: UIControlEvents.TouchUpInside)
+        let listBarButton = UIBarButtonItem(customView: listButton)
         var negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
         negativeSpacer.width = -8;
-        mapViewNavigationItem.setLeftBarButtonItems([negativeSpacer, cancelBarButton], animated: false)
-        
-        //declare latitude and longitude of map center
-        //let center = CLLocationCoordinate2D(latitude: 37.8074698812357, longitude: -122.417274713516)
-  
-        //declare span of map (height and width in degrees)
-        //let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.01)
-        
-        //add center and span to a region,
-        //adjust the region to fit in the mapview
-        //and assign to mapview region
-        //let region = MKCoordinateRegion(center: center, span: span)
-        //mapView.region = mapView.regionThatFits(region)
-        
+        mapViewNavigationItem.setRightBarButtonItems([negativeSpacer, listBarButton], animated: false)
         
         var upper: CLLocationCoordinate2D?
         var lower: CLLocationCoordinate2D?
-        
         for business in businessesArray!  {
-            
+        
             let location = business.location
             let coordinate = location.coordinate
-            
+    
             if coordinate != nil {
                 if upper == nil {
                     upper = CLLocationCoordinate2DMake(coordinate!.lat, coordinate!.long)
@@ -77,25 +63,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             println("Lower: \(lower?.latitude) \(lower?.longitude)")
             }
             if upper != nil {
-                let span2 = MKCoordinateSpan(latitudeDelta: upper!.latitude-lower!.latitude+0.05, longitudeDelta: upper!.longitude-lower!.longitude+0.05)
-                let center2 = CLLocationCoordinate2D(latitude: (upper!.latitude+lower!.latitude)/2, longitude: (upper!.longitude+lower!.longitude)/2)
-                let region2 = MKCoordinateRegion(center: center2, span: span2)
-                mapView.region = mapView.regionThatFits(region2)
+                let span = MKCoordinateSpan(latitudeDelta: upper!.latitude-lower!.latitude+0.05, longitudeDelta: upper!.longitude-lower!.longitude+0.05)
+                let center = CLLocationCoordinate2D(latitude: (upper!.latitude+lower!.latitude)/2, longitude: (upper!.longitude+lower!.longitude)/2)
+                let region = MKCoordinateRegion(center: center, span: span)
+                mapView.region = mapView.regionThatFits(region)
             }
         }
-        // Do any additional setup after loading the view.
-        // mapView.showsUserLocation = true;
-
     }
 
     func backAction() {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             NSLog("Dismissing the map view")
-            FilterSettings.cancel()
+            //FilterSettings.cancel()
         })
     }
-
-    
-    
-    
 }
