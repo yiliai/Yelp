@@ -18,7 +18,7 @@ Filter page
 * [ ] Optional: implement a custom switch
 * [x] Required: Radius filter should expand as in the real Yelp app
 * [x] Required: Categories should show a subset of the full list with a "See All" row to expand. 
-* [x] Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
+* [x] Required: Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
 
 * [ ] Optional: Implement the restaurant detail page.
 
@@ -27,6 +27,7 @@ Additonal things I tried to experiment with:
 * Custom annotation markers in map view to match Yelp's style
 
 Questions and Known Issues:
+* Distance on the main page is hardcoded as 0.3 mi. 
 * On the filter page, the open/expand dropdown animation is a bit weird. I couldn't figure out how to make it smooth like Yelp's.
 * After tapping "Search" and returning back to the main page, the old results still show up briefly before the new search is kicked off. Not sure how to hide it completely.
 
