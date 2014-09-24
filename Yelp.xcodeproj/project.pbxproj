@@ -28,6 +28,9 @@
 		3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AE819D01220000CF0CB /* YelpButton.swift */; };
 		3AE56AEE19D11A5F000CF0CB /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */; };
 		3AE56AEF19D11A5F000CF0CB /* ProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */; };
+		3AE56AFE19D16195000CF0CB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE56AFC19D16195000CF0CB /* MapViewController.swift */; };
+		3AE56AFF19D16195000CF0CB /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE56AFD19D16195000CF0CB /* MapViewController.xib */; };
+		3AE56B0219D16503000CF0CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE56B0119D16503000CF0CB /* MapKit.framework */; };
 		8F035F5A8ED64F7AA14291A1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABFF0F7B11F41F299A2DD4A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +73,9 @@
 		3AE56AE819D01220000CF0CB /* YelpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpButton.swift; sourceTree = "<group>"; };
 		3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTableViewCell.swift; sourceTree = "<group>"; };
 		3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressTableViewCell.xib; sourceTree = "<group>"; };
+		3AE56AFC19D16195000CF0CB /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3AE56AFD19D16195000CF0CB /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		3AE56B0119D16503000CF0CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6ABFF0F7B11F41F299A2DD4A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -78,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE56B0219D16503000CF0CB /* MapKit.framework in Frameworks */,
 				8F035F5A8ED64F7AA14291A1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,8 +127,9 @@
 				3A26E04119CEA0DD00322722 /* FilterViewController.xib */,
 				3A26E04719CEAEB600322722 /* SwitchTableViewCell.xib */,
 				3A26E06219CF87A200322722 /* CheckboxTableViewCell.xib */,
-				3AE56AE819D01220000CF0CB /* YelpButton.swift */,
 				3AE56AED19D11A5F000CF0CB /* ProgressTableViewCell.xib */,
+				3AE56AE819D01220000CF0CB /* YelpButton.swift */,
+				3AE56AFD19D16195000CF0CB /* MapViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 				3A26E04619CEAEB600322722 /* SwitchTableViewCell.swift */,
 				3A26E06319CF87A200322722 /* CheckboxTableViewCell.swift */,
 				3AE56AEC19D11A5F000CF0CB /* ProgressTableViewCell.swift */,
+				3AE56AFC19D16195000CF0CB /* MapViewController.swift */,
 				3A84359119CAA80A00C62881 /* Images.xcassets */,
 				3A84359319CAA80A00C62881 /* LaunchScreen.xib */,
 				3A84358819CAA80A00C62881 /* Supporting Files */,
@@ -194,6 +203,7 @@
 		C738EE94A3704CD9A36EA847 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AE56B0119D16503000CF0CB /* MapKit.framework */,
 				6ABFF0F7B11F41F299A2DD4A /* libPods.a */,
 			);
 			name = Frameworks;
@@ -285,6 +295,7 @@
 				3A26E04319CEA0DD00322722 /* FilterViewController.xib in Resources */,
 				3AE56AEF19D11A5F000CF0CB /* ProgressTableViewCell.xib in Resources */,
 				3A26E06419CF87A200322722 /* CheckboxTableViewCell.xib in Resources */,
+				3AE56AFF19D16195000CF0CB /* MapViewController.xib in Resources */,
 				3A84359019CAA80A00C62881 /* Main.storyboard in Resources */,
 				3A26E04919CEAEB600322722 /* SwitchTableViewCell.xib in Resources */,
 				3A84359519CAA80A00C62881 /* LaunchScreen.xib in Resources */,
@@ -345,6 +356,7 @@
 				3AE56ADE19CFD1E2000CF0CB /* BusinessLocation.swift in Sources */,
 				3A84358B19CAA80A00C62881 /* AppDelegate.swift in Sources */,
 				3AE56ADB19CFD1E2000CF0CB /* BusinessesTableViewController.swift in Sources */,
+				3AE56AFE19D16195000CF0CB /* MapViewController.swift in Sources */,
 				3AE56AE319CFD239000CF0CB /* BusinessTableViewCell.swift in Sources */,
 				3AE56AE919D01220000CF0CB /* YelpButton.swift in Sources */,
 				3A26E04819CEAEB600322722 /* SwitchTableViewCell.swift in Sources */,

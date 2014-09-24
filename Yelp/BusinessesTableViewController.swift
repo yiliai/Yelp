@@ -27,7 +27,6 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     var businessesArray = [Business]()
     var searchParameters = NSMutableDictionary()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
@@ -46,7 +45,7 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
     
         // Add the map button on the right
         let mapButton = YelpButton(text: "Map")
-        mapButton.addTarget(self, action: "showFilterView", forControlEvents: UIControlEvents.TouchUpInside)
+        mapButton.addTarget(self, action: "showMapView", forControlEvents: UIControlEvents.TouchUpInside)
         let mapBarButton = UIBarButtonItem(customView: mapButton)
         self.navigationItem.setRightBarButtonItems([negativeSpacer, mapBarButton], animated: false)
         
@@ -135,7 +134,17 @@ class BusinessesTableViewController: UIViewController, UITableViewDataSource, UI
             NSLog("Successfully pushed the filter view")
         })
     }
-    
+    func showMapView() {
+        NSLog("Tapped on Map")
+        let mapViewController = MapViewController(nibName: "MapViewController", bundle: nil)
+        mapViewController.businessesArray = businessesArray
+        //mapViewController.filterDelegate = self
+        
+        mapViewController.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+        self.navigationController?.presentViewController(mapViewController, animated: true, completion: { () -> Void in
+            NSLog("Successfully pushed the map view")
+        })
+    }
     func loadMoreResults() {
         // Take the current search parameters and add more to the businesses array
         var parameters = ["limit": LIMIT, "offset":businessesArray.count, "term": "restaurants", "location": "San Francisco"]

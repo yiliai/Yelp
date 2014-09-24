@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController" customModule="Yelp" customModuleProvider="target">
+            <connections>
+                <outlet property="mapView" destination="g46-2M-IrU" id="7p2-KJ-VdK"/>
+                <outlet property="mapViewNavigationItem" destination="0l6-my-Az5" id="oXM-Vn-e51"/>
+                <outlet property="navigationBar" destination="UUF-Wy-UYp" id="J6D-te-0mk"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUF-Wy-UYp">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="pGH-6S-FZY"/>
+                    </constraints>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem title="Map View" id="0l6-my-Az5"/>
+                    </items>
+                </navigationBar>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="g46-2M-IrU">
+                    <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                </mapView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="g46-2M-IrU" secondAttribute="bottom" id="7gy-nJ-oPe"/>
+                <constraint firstItem="g46-2M-IrU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SX0-Nk-eoe"/>
+                <constraint firstItem="UUF-Wy-UYp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cBS-lY-ghK"/>
+                <constraint firstAttribute="trailing" secondItem="g46-2M-IrU" secondAttribute="trailing" id="g6g-Hy-MSJ"/>
+                <constraint firstAttribute="trailing" secondItem="UUF-Wy-UYp" secondAttribute="trailing" id="jTn-I1-N6C"/>
+                <constraint firstItem="UUF-Wy-UYp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="mVV-Of-Ymy"/>
+                <constraint firstItem="g46-2M-IrU" firstAttribute="top" secondItem="UUF-Wy-UYp" secondAttribute="top" constant="64" id="tg9-IK-E6F"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

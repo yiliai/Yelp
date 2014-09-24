@@ -14,7 +14,8 @@ class BusinessLocation {
 
     var address = [String]()
     var city = String()
-    var coordinate = (lat: String(), long: String())
+    var coordinate: (lat: Double, long: Double)?
+    
     var neighborhoods = [String]()
     var postal_code = Int()
     var state_code = String()
@@ -22,7 +23,7 @@ class BusinessLocation {
     init() {
         
     }
-    
+
     init(dictionary: NSDictionary) {
         self.dictionaryReference = dictionary
         
@@ -33,6 +34,10 @@ class BusinessLocation {
         // Get the neighborhoods
         if let neighborhoods = dictionary["neighborhoods"] as [String]? {
             self.neighborhoods = neighborhoods
+        }
+        if let coordinates = dictionary["coordinate"] as NSDictionary? {
+            self.coordinate = (lat: coordinates["latitude"] as Double, long: coordinates["longitude"] as Double)
+            println(self.coordinate)
         }
     }
 }
